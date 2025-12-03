@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,7 +44,43 @@ namespace Client
         }
         private static void ConnectServer()
         {
-            throw new NotImplementedException();
+
+            IPEndPoint endPoint = new IPEndPoint(ServerIpAddress, ServerPort);
+            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            try
+            {
+                socket.Connect(endPoint);
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            if (socket.Connected)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Успешное подключение. Ваш токен: " + ClientToken);
+
+                socket.Send(Encoding.UTF8.GetBytes("/token"));
+
+                byte[] Bytes = new byte[10486760];
+                int ByteRec = socket.Receive(Bytes);
+
+                string Response = Encoding.UTF8.GetString(Bytes, 0, ByteRec);
+                if (Response == "/limit")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("There is enough space on the license server");
+                }
+                else
+                {
+                    ClientToken = Response;
+                    ClientDateConnection = DateTime.Now;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Recieved connction token: " + ClientToken);
+                }
+            }
         }
 
         public static void Help()
@@ -64,11 +101,7 @@ namespace Client
             Console.Write("/status");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" - show list users ");
-        }
-        
-        
-
-
+        }           
         public static void OnSettings()
         {
             string Path = Directory.GetCurrentDirectory() + "/.config";
