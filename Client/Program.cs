@@ -17,6 +17,7 @@ namespace Client
         static DateTime ClientDateConnection;
         static void Main(string[] args)
         {
+
         }
 
         public static void OnSettings()
