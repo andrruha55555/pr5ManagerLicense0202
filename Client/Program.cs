@@ -33,21 +33,40 @@ namespace Client
             else if (Command == "/status") GetStatus();
             else if (Command == "/help") Help();
         }
-
+        public static void GetStatus()
+        {
+            int Duration = (int)DateTime.Now.Subtract(ClientDateConnection).TotalSeconds;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"Client: {ClientToken}, time connection: {ClientDateConnection.ToString("HH:mm:ss dd.MM")}, " +
+                $"duration: {Duration}"
+                );
+        }
         private static void ConnectServer()
         {
             throw new NotImplementedException();
         }
 
-        private static void Help()
+        public static void Help()
         {
-            throw new NotImplementedException();
-        }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Commands to the server: ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("/config");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" - set initial settings ");
 
-        private static void GetStatus()
-        {
-            throw new NotImplementedException();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("/connect");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" - connection to the server ");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("/status");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" - show list users ");
         }
+        
+        
 
 
         public static void OnSettings()
