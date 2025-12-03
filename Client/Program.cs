@@ -17,8 +17,24 @@ namespace Client
         static DateTime ClientDateConnection;
         static void Main(string[] args)
         {
-
+            OnSettings();
         }
+        public static void SetCommand()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            string Command = Console.ReadLine();
+
+            if (Command == "/config")
+            {
+                File.Delete(Directory.GetCurrentDirectory() + "/.config");
+                OnSettings();
+            }
+            else if (Command == "/connect") ;
+            else if (Command == "/status") ;
+            else if (Command == "/help") Help();
+        }
+
+
 
         public static void OnSettings()
         {
