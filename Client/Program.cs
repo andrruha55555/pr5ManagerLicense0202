@@ -71,6 +71,7 @@ namespace Client
 
                 Thread.Sleep(1000);
             }
+        }
         public static void SetCommand()
         {
             Console.ForegroundColor = ConsoleColor.Red;
