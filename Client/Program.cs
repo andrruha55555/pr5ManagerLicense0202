@@ -29,11 +29,25 @@ namespace Client
                 File.Delete(Directory.GetCurrentDirectory() + "/.config");
                 OnSettings();
             }
-            else if (Command == "/connect") ;
-            else if (Command == "/status") ;
+            else if (Command == "/connect") ConnectServer();
+            else if (Command == "/status") GetStatus();
             else if (Command == "/help") Help();
         }
 
+        private static void ConnectServer()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Help()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void GetStatus()
+        {
+            throw new NotImplementedException();
+        }
 
 
         public static void OnSettings()
