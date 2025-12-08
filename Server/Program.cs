@@ -19,11 +19,9 @@ namespace Server
         static int MaxClient;
         static int Duration;
         static List<Client> AllClients = new List<Client>();
-        static Context dbContext;
 
         static void Main(string[] args)
         {
-            dbContext = new Context();
             OnSettings();
             Thread tListner = new Thread(ConnectServer);
             tListner.Start();
